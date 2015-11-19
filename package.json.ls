@@ -1,6 +1,6 @@
 name: 'grasp'
 author: 'George Zahariev'
-version: '0.4.0-beta1'
+version: '0.4.0-beta1+gti'
 homepage: 'http://graspjs.com'
 description: 'JavaScript structural search, replace, and refactor'
 keywords:
