@@ -12,7 +12,7 @@ require! {
 help = require './help'
 _console = console
 
-version = '0.4.0-beta1+gti'
+version = '0.4.0+gti'
 
 run = ({
   args
@@ -66,6 +66,13 @@ run = ({
     equery
   else
     squery
+
+  if options.jsx
+    options.extensions.push('jsx')
+    if options.parser.0 == 'acorn'
+      require 'acorn-jsx'
+      options.parser.1.plugins = {jsx: true}
+
 
   [parser, parser-options] = switch options.parser.0
                              | 'acorn'   => [acorn, options.parser.1]
