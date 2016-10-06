@@ -140,7 +140,10 @@ run = ({
   call-callback = not options.quiet and not options.json and not options.to and not options.in-place
   out = !->
     results-data.push it
-    callback it if call-callback
+    if call-callback
+      callback it
+    else if options.in-place && options.count
+      callback it[2]
 
   console.time 'parse-selector' if debug
   parsed-selector = query-engine.parse selector
@@ -182,7 +185,7 @@ run = ({
         replaced = replace replacement, clean-input, sliced-results, query-engine
         if options.to or options.in-place
           results-format := 'pairs'
-          out [name, replaced]
+          out [name, replaced, options.count && format-count(color, count, name)]
         else
           out replaced
       catch
