@@ -266,7 +266,7 @@ run = ({
     (.match //\.(?:#{ exts.join '|' })$//)
 
   exclude = options.exclude
-  test-exclude = if exclude.length is 0
+  test-exclude = if !exclude or exclude.length is 0
     -> true
   else
     (file, basePath, upPath) ->
