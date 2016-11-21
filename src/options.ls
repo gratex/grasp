@@ -182,6 +182,10 @@ options =
     type: 'Boolean'
     default: 'true'
     description: 'display \'(multiline)\' keyword for multiline matches'
+  * option: 'join-multilines'
+    type: 'Boolean'
+    default: 'false'
+    description: 'join multiline results into one line (remove leading whitespaces and join by space)'
 
   * heading: 'Context control'
   * option: 'before-context'
