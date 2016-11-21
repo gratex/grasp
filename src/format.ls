@@ -40,6 +40,10 @@ function format-result name, input-lines, input-lines-length, {color, bold}, opt
 
   clean-lines = (if only-match then compact else id) output-lines
   multiline = clean-lines.length > 1
+  if multiline and options.join-multilines
+    clean-lines = [clean-lines.map(-> it.trim()).join(" ")];
+    multiline = false
+
   output-string = unlines clean-lines
 
   display-start-line = node.loc.start.line

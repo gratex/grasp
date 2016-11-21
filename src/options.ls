@@ -182,7 +182,10 @@ options =
     type: 'Boolean'
     description: 'JSON output for matches'
     long-description: 'Prints out JSON for the output instead of formatted results. This will print out the node data as JSON, instead of the formatted text.'
-
+  * option: 'join-multilines'
+    type: 'Boolean'
+    default: 'false'
+    description: 'join multiline results into one line (remove leading whitespaces and join by space)'
   * heading: 'Context control'
   * option: 'before-context'
     alias: 'B'
