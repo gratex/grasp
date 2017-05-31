@@ -151,7 +151,7 @@ run = ({
   if debug
     console.time-end 'parse-selector'
     console.log 'parsed-selector:'
-    console.log JSON.stringify parsed-selector
+    console.log JSON.stringify parsed-selector, null, 2
 
   results-sort-func = (a, b) ->
     a-start = a.loc.start
@@ -167,6 +167,8 @@ run = ({
       console.time "parse-input:#name" if debug
       parsed-input = parser.parse clean-input, parser-options
       console.time-end "parse-input:#name" if debug
+      if options.print-ast
+          console.log JSON.stringify parsed-input, null, 2
     catch
       throw new Error "Error: Could not parse JavaScript from '#name'. #{e.message}"
 
