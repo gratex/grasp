@@ -36,16 +36,16 @@
     "build": "make build"
   },
   "dependencies": {
-    "flow-parser": "^0.*",
-    "prelude-ls": "^1.1.2",
-    "cli-color": "^1.1.0",
     "async": "^1.5.0",
-    "optionator": "^0.8.0",
-    "grasp-squery": "^0.4.0",
+    "cli-color": "^1.1.0",
+    "flow-parser": "^0.*",
     "grasp-equery": "^0.4.0",
+    "grasp-squery": "github:gratex/grasp-squery#4c8d13f",
     "grasp-syntax-javascript": "^0.2.0",
     "levn": "^0.3.0",
     "minimatch": "^3.0.3",
+    "optionator": "^0.8.0",
+    "prelude-ls": "^1.1.2",
     "slash": "^1.0.0"
   },
   "devDependencies": {

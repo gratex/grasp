@@ -38,7 +38,7 @@ dependencies:
   'cli-color': '^1.1.0'
   async: '^1.5.0'
   optionator: '^0.8.0'
-  'grasp-squery': '^0.4.0'
+  'grasp-squery': 'github:gratex/grasp-squery#4c8d13f'
   'grasp-equery': '^0.4.0'
   'grasp-syntax-javascript': '^0.2.0'
   levn: '^0.3.0'
