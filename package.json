@@ -41,7 +41,7 @@
     "flow-parser": "^0.*",
     "grasp-equery": "^0.4.0",
     "grasp-squery": "github:gratex/grasp-squery#4c8d13f",
-    "grasp-syntax-javascript": "^0.2.0",
+    "grasp-syntax-javascript": "github:gratex/grasp-syntax-javascript#2140828",
     "levn": "^0.3.0",
     "minimatch": "^3.0.3",
     "optionator": "^0.8.0",
