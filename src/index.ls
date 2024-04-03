@@ -1,6 +1,6 @@
 require! {
   path
-  'grasp-squery': squery
+  '@gjax/grasp-squery': squery
   'grasp-equery': equery
   async
   minimatch
