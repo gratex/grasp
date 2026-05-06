@@ -25,15 +25,14 @@
   "bugs": "https://github.com/gkz/grasp/issues",
   "license": "MIT",
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 18.0.0"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/gkz/grasp.git"
   },
   "scripts": {
-    "test": "make test",
-    "build": "make build"
+    "test": "mocha test/*.js --ui tdd --timeout 5000"
   },
   "dependencies": {
     "@gjax/grasp-squery": "^0.4.0",
@@ -50,7 +49,6 @@
   },
   "devDependencies": {
     "istanbul": "^0.4.1",
-    "livescript": "^1.5.0",
     "mocha": "^2.3.4"
   },
   "preferGlobal": true
