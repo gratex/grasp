@@ -47,7 +47,7 @@ suite 'lib functions' ->
       equal (grasp.replace 'squery')('#x')('y')(input), replaced
 
     test 'full squery' ->
-      equal (grasp.replace 'grasp-squery', '#x', 'y', input), replaced
+      equal (grasp.replace '@gjax/grasp-squery', '#x', 'y', input), replaced
 
     test 'equery' ->
       equal (grasp.replace 'equery' 'x', 'y', input), replaced

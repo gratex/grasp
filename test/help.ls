@@ -23,7 +23,7 @@ suite 'help' ->
     eq '--help --context --after-context', /-C, --context n::Int[\s\S]+-A, --after-context/, it
 
   test 'non existant option' ->
-    eq '--help --FAKE', "Invalid option '--FAKE' - perhaps you meant '-A'?", it
+    eq '--help --FAKE', "Invalid option '--FAKE' - perhaps you meant '-F'?", it
 
   test 'verbose options' ->
     eq '--help verbose', /# Context control #[\s\S]+-A, --after-context n::Int[\s\S]+description: Print n/, it

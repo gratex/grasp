@@ -52,7 +52,7 @@ suite 'more options' ->
     eq '--equery --squery "[op=*]" test/data/a.js', '2:  return ##x * x#;', it
 
   test 'engine' ->
-    eq "--engine ../node_modules/grasp-squery \"update[op='++']\" test/data/a.js", '6:  ##z++#;', it
+    eq "--engine ../node_modules/@gjax/grasp-squery \"update[op='++']\" test/data/a.js", '6:  ##z++#;', it
 
   test 'parser with path and options' ->
     eq '--parser "../node_modules/flow-parser, {locations: true}" prop test/data/a.js', [

@@ -97,7 +97,7 @@ run = ({
     replacement = that
   else if options.replace-file
     try
-      replacement = fs.read-file-sync that, 'utf8' .replace /([\s\S]*)\n$/ '$1'
+      replacement = fs.read-file-sync that, 'utf8' .replace /([\s\S]*?)\r?\n$/ '$1'
     catch
       error "Error: No such file '#{options.replace-file}'."
       exit 2
@@ -152,7 +152,7 @@ run = ({
   search = (name, input) !->
     console.time "search-total:#name" if debug
 
-    clean-input = input.replace /^#!.*\n/ ''
+    clean-input = input.replace /\r\n/g '\n' .replace /^#!.*\n/ ''
     try
       console.time "parse-input:#name" if debug
       parsed-input = parser.parse clean-input, parser-options
@@ -292,7 +292,7 @@ run = ({
                 done!
           else if stat.is-file! and test-ext target and test-exclude target, basePath, upPath
             file-contents = fs.read-file-sync target-path, 'utf8'
-            display-path = path.relative base-path, target-path
+            display-path = path.relative(base-path, target-path).replace(/\\/g, '/')
             target-paths.push display-path
             search display-path, file-contents
             done!
@@ -310,7 +310,7 @@ run = ({
     async.each-series targets, (search-target cwd, cwd), -> end target-paths
     void
 
-get-query-engine = -> {squery: 'grasp-squery', equery: 'grasp-equery'}[it] or it
+get-query-engine = -> {squery: '@gjax/grasp-squery', equery: 'grasp-equery'}[it] or it
 run <<<
   VERSION: version
   search: (engine, selector, input) -->
