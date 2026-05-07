@@ -1,9 +1,9 @@
 // Refactored from LiveScript - removed IIFE, var→const/let
+// Phase 14: replaced prelude-ls with native JS
 const grasp = require('..');
 const clc = require('cli-color');
 const path = require('path');
 const assert = require('assert');
-const { keys: keysPrelude, reject: rejectPrelude, map: mapPrelude, lines: linesPrelude } = require('prelude-ls');
 const EventEmitter = require('events').EventEmitter;
 
 const equal = assert.strictEqual;
@@ -96,7 +96,7 @@ const FileSystem = (function() {
     if (node.type === 'file') {
       throw new Error(targetPath + " is file");
     } else {
-      return keysPrelude(node);
+      return Object.keys(node);
     }
   };
   
@@ -198,7 +198,7 @@ const eq = function(argString, expected, done, arg$) {
   if (dir) {
     process.chdir(dir);
   }
-  expectedFormatted = mapPrelude(embolden, [].concat(expected));
+  expectedFormatted = [].concat(expected).map(embolden);
   args = argString == null
     ? null
     : color
