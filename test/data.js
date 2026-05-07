@@ -3,7 +3,7 @@ const eq = require('./_helpers').eq;
 const assert = require('assert');
 const equal = assert.strictEqual;
 const deepEqual = assert.deepEqual;
-const toString$ = Object.prototype.toString;
+const { toString$ } = require('../lib/utils');
 
 suite('data', function() {
   suite('basic', function() {

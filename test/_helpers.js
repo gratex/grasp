@@ -4,6 +4,7 @@ const grasp = require('..');
 const clc = require('cli-color');
 const path = require('path');
 const assert = require('assert');
+const { toString$ } = require('../lib/utils');
 const EventEmitter = require('events').EventEmitter;
 
 const equal = assert.strictEqual;
@@ -115,8 +116,6 @@ const FileSystem = (function() {
   
   return FileSystem;
 }());
-
-const toString$ = Object.prototype.toString;
 
 const q = function(args, opts) {
   opts == null && (opts = {});

@@ -1,21 +1,8 @@
 // Refactored from LiveScript - removed IIFE, var→const/let
 const { eq, q, StdIn, FileSystem } = require('./_helpers');
+const { curry$ } = require('../lib/utils');
 const assert = require('assert');
 const equal = assert.strictEqual;
-
-function curry$(f, bound){
-  var context,
-  _curry = function(args) {
-    return f.length > 1 ? function(){
-      var params = args ? args.concat() : [];
-      context = bound ? context || this : this;
-      return params.push.apply(params, arguments) <
-          f.length && arguments.length ?
-        _curry.call(context, params) : f.apply(context, params);
-    } : f;
-  };
-  return _curry();
-}
 
 suite('lib options', function() {
   const data = ['function square(x) {\n', '  return x * x;\n', '}\n'];

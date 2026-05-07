@@ -1,6 +1,5 @@
 // Refactored from LiveScript - removed IIFE, var→const/let
 const eq = require('./_helpers').eq;
-const path = require('path');
 
 suite('filename', function() {
   test('single file - with filename', function(it) {
