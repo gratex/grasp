@@ -36,20 +36,19 @@
   },
   "dependencies": {
     "@gjax/grasp-squery": "^0.4.0",
-    "async": "^1.5.0",
-    "cli-color": "^1.1.0",
+    "async": "^3.2.6",
+    "cli-color": "^2.0.0",
     "flow-parser": "^0.232.0",
     "grasp-equery": "^0.4.0",
     "grasp-syntax-javascript": "github:gratex/grasp-syntax-javascript#2140828",
     "levn": "^0.3.0",
-    "minimatch": "^3.0.3",
+    "minimatch": "^3.1.5",
     "optionator": "^0.8.0",
     "prelude-ls": "^1.1.2",
     "slash": "^1.0.0"
   },
   "devDependencies": {
-    "istanbul": "^0.4.1",
-    "mocha": "^2.3.4"
+    "mocha": "^11.0.0"
   },
   "preferGlobal": true
 }
