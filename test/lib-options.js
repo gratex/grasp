@@ -11,18 +11,18 @@ suite('lib options', function() {
   suite('stdin', function() {
     test('basic', function(it) {
       return eq('#x', results, it, {
-        stdin: StdIn(data)
+        stdin: new StdIn(data)
       });
     });
     test('using -', function(it) {
       return eq('#x -', results, it, {
-        stdin: StdIn(data)
+        stdin: new StdIn(data)
       });
     });
     test('- and files', function(it) {
       const results = ['test/data/a.js:1:function ##square#(x) {', '(standard input):1:function ##square#(x) {'];
       return eq('#square test/data/a.js - test/data/b.js', results, it, {
-        stdin: StdIn(data)
+        stdin: new StdIn(data)
       });
     });
     test('error in stdin input', function(it) {
@@ -30,7 +30,7 @@ suite('lib options', function() {
         funcType: 'error',
         value: /Could not parse JavaScript/
       }], it, {
-        stdin: StdIn('%$@%@%')
+        stdin: new StdIn('%$@%@%')
       });
     });
     return test('error: stdin not defined', function(it) {

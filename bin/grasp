@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-var path = require('path'),
-    grasp = require(path.join(__dirname, '..', 'lib'));
+const path = require('path');
+const grasp = require(path.join(__dirname, '..', 'lib'));
+
 grasp({
   args: process.argv,
-  exit: function(code){ process.exitCode = code },
+  exit: code => { process.exitCode = code; },
   stdin: process.stdin,
   fs: require('fs'),
   callback: console.log,

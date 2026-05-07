@@ -11,111 +11,68 @@ const equal = assert.strictEqual;
 const deepEqual = assert.deepEqual;
 const throws = assert.throws;
 
-// Helper functions (from LiveScript runtime)
-function bind$(obj, key, target) {
-  return function() { return (target || obj)[key].apply(obj, arguments); };
-}
-
-function extend$(sub, sup) {
-  function fun() {}
-  fun.prototype = (sub.superclass = sup).prototype;
-  (sub.prototype = new fun).constructor = sub;
-  if (typeof sup.extended === 'function') sup.extended(sub);
-  return sub;
-}
-
-function import$(obj, src) {
-  const own = {}.hasOwnProperty;
-  for (const key in src) if (own.call(src, key)) obj[key] = src[key];
-  return obj;
-}
-
-// StdIn extends EventEmitter
-const StdIn = (function(superclass) {
-  const prototype = extend$((import$(StdIn, superclass).displayName = 'StdIn', StdIn), superclass).prototype;
-  const constructor = StdIn;
-  
-  function StdIn(data) {
-    let this$ = this instanceof ctor$ ? this : new ctor$();
-    this$.data = data;
-    this$.emitData = bind$(this$, 'emitData', prototype);
-    this$.currentLine = 0;
-    const ref$ = this$.data;
-    this$.dataLen = ref$ != null ? ref$.length : undefined;
-    return this$;
+// ES6 Class syntax - StdIn extends EventEmitter
+class StdIn extends EventEmitter {
+  constructor(data) {
+    super();
+    this.data = data;
+    this.currentLine = 0;
+    this.dataLen = data != null ? data.length : undefined;
   }
-  
-  function ctor$() {}
-  ctor$.prototype = prototype;
-  
-  StdIn.prototype.emitData = function() {
+
+  emitData() {
     this.emit('data', this.data[this.currentLine]);
     this.currentLine++;
     if (this.currentLine === this.dataLen) {
       clearInterval(this.interval);
       return this.emit('end');
     }
-  };
-  
-  StdIn.prototype.resume = function() {
-    return this.interval = setInterval(this.emitData, 5);
-  };
-  
-  StdIn.prototype.setEncoding = function() {};
-  
-  return StdIn;
-}(EventEmitter));
+  }
+
+  resume() {
+    return this.interval = setInterval(this.emitData.bind(this), 5);
+  }
+
+  setEncoding() {}
+}
 
 // FileSystem mock
-const FileSystem = (function() {
-  FileSystem.displayName = 'FileSystem';
-  const prototype = FileSystem.prototype;
-  const constructor = FileSystem;
-  
-  function FileSystem(files) {
-    let name, info;
+// ES6 Class syntax - FileSystem mock
+class FileSystem {
+  constructor(files) {
     this.files = {};
-    for (name in files) {
-      info = files[name];
+    for (const name in files) {
+      const info = files[name];
       this.files[path.join(process.cwd(), name)] = info;
     }
   }
-  
-  FileSystem.prototype.readFileSync = function(targetPath) {
-    let node;
-    node = this.files[path.resolve(targetPath)];
+
+  readFileSync(targetPath) {
+    const node = this.files[path.resolve(targetPath)];
     if (node.type === 'directory') {
       throw new Error(targetPath + " is directory");
     } else {
       return node.contents;
     }
-  };
-  
-  FileSystem.prototype.readDirSync = function(targetPath) {
-    let node;
-    node = this.files[path.resolve(targetPath)];
+  }
+
+  readDirSync(targetPath) {
+    const node = this.files[path.resolve(targetPath)];
     if (node.type === 'file') {
       throw new Error(targetPath + " is file");
     } else {
       return Object.keys(node);
     }
-  };
-  
-  FileSystem.prototype.lstatSync = function(targetPath) {
-    let node;
-    node = this.files[path.resolve(targetPath)];
+  }
+
+  lstatSync(targetPath) {
+    const node = this.files[path.resolve(targetPath)];
     return {
-      isDirectory: function() {
-        return node.type === 'directory';
-      },
-      isFile: function() {
-        return node.type === 'file';
-      }
+      isDirectory: () => node.type === 'directory',
+      isFile: () => node.type === 'file'
     };
-  };
-  
-  return FileSystem;
-}());
+  }
+}
 
 const q = function(args, opts) {
   opts == null && (opts = {});
@@ -179,37 +136,34 @@ const embolden = function(it) {
 };
 
 const eq = function(argString, expected, done, arg$) {
-  let ref$, quiet, data, color, callback, ref1$, stdin, fs, input, dir, final, textFormat, expectedFormatted, args, expectedLen, o, options;
-  ref$ = arg$ != null
-    ? arg$
-    : {};
-  quiet = ref$.quiet;
-  data = ref$.data;
-  color = ref$.color;
-  callback = (ref1$ = ref$.callback) != null ? ref1$ : true;
-  stdin = ref$.stdin;
-  fs = ref$.fs;
-  input = ref$.input;
-  dir = ref$.dir;
-  final = ref$.final;
-  textFormat = ref$.textFormat;
-  
+  const argObj = arg$ != null ? arg$ : {};
+  const quiet = argObj.quiet;
+  const data = argObj.data;
+  const color = argObj.color;
+  const callback = argObj.callback != null ? argObj.callback : true;
+  const stdin = argObj.stdin;
+  const fs = argObj.fs;
+  const input = argObj.input;
+  const dir = argObj.dir;
+  const final = argObj.final;
+  const textFormat = argObj.textFormat;
+
   if (dir) {
     process.chdir(dir);
   }
-  expectedFormatted = [].concat(expected).map(embolden);
-  args = argString == null
+  const expectedFormatted = [].concat(expected).map(embolden);
+  const args = argString == null
     ? null
     : color
       ? argString
       : "--no-color " + argString;
-  expectedLen = expectedFormatted.length;
-  o = {
+  const expectedLen = expectedFormatted.length;
+  const o = {
     i: 0,
     expected: expectedFormatted,
     callback: callback
   };
-  options = {
+  const options = {
     console: {
       log: testFunc('log', o),
       warn: testFunc('warn', o),
@@ -225,15 +179,14 @@ const eq = function(argString, expected, done, arg$) {
     input: input,
     data: data,
     exit: function(exitCode, results) {
-      let res, j, i$, ref$, len$, exp, e;
-      res = [].concat(results);
-      j = 0;
+      let res = [].concat(results);
+      let j = 0;
       try {
         if (final) {
           final(results);
         } else {
-          for (i$ = 0, len$ = (ref$ = expectedFormatted).length; i$ < len$; ++i$) {
-            exp = ref$[i$];
+          for (let i = 0, len = expectedFormatted.length; i < len; i++) {
+            let exp = expectedFormatted[i];
             if (exp.funcType != null) {
               continue;
             }
@@ -247,8 +200,7 @@ const eq = function(argString, expected, done, arg$) {
             j++;
           }
         }
-      } catch (e$) {
-        e = e$;
+      } catch (e) {
         console.log('\n');
         console.log('ERROR with final value compare');
         console.log(res);
